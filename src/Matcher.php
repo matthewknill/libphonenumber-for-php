@@ -55,7 +55,7 @@ class Matcher
                 // no changes
                 break;
         }
-        $final_pattern = '/' . $final_pattern . '/ui';
+        $final_pattern = '/' . $final_pattern . '/';
 
         $search = mb_substr($this->subject, $offset);
 
@@ -166,7 +166,7 @@ class Matcher
      */
     public function replaceFirst($replacement)
     {
-        return preg_replace('/' . $this->pattern . '/x', $replacement, $this->subject, 1);
+        return preg_replace('/' . $this->pattern . '/', $replacement, $this->subject, 1);
     }
 
     /**
@@ -175,7 +175,7 @@ class Matcher
      */
     public function replaceAll($replacement)
     {
-        return preg_replace('/' . $this->pattern . '/x', $replacement, $this->subject);
+        return preg_replace('/' . $this->pattern . '/', $replacement, $this->subject);
     }
 
     /**

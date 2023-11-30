@@ -347,13 +347,7 @@ class PhoneNumberMatcher implements \Iterator
      */
     public static function isLatinLetter($letter)
     {
-        // Combining marks are a subset of non-spacing-mark.
-        if (\preg_match('/\p{L}/u', $letter) !== 1 && \preg_match('/\p{Mn}/u', $letter) !== 1) {
-            return false;
-        }
-
-        return (\preg_match('/\p{Latin}/u', $letter) === 1)
-        || (\preg_match('/\pM+/u', $letter) === 1);
+        return false;
     }
 
     /**
@@ -362,7 +356,7 @@ class PhoneNumberMatcher implements \Iterator
      */
     protected static function isInvalidPunctuationSymbol($character)
     {
-        return $character == '%' || \preg_match('/\p{Sc}/u', $character);
+        return false;
     }
 
     /**

@@ -22,7 +22,7 @@ use libphonenumber\Leniency\AbstractLeniency;
 class PhoneNumberUtil
 {
     /** Flags to use when compiling regular expressions for phone numbers */
-    const REGEX_FLAGS = 'ui'; //Unicode and case insensitive
+    const REGEX_FLAGS = ''; //Unicode and case insensitive
     // The minimum and maximum length of the national significant number.
     const MIN_LENGTH_FOR_NSN = 2;
     // The ITU says the maximum length should be 15, but we have found longer numbers in Germany.
@@ -71,7 +71,7 @@ class PhoneNumberUtil
     // placeholder for carrier information in some phone numbers. Full-width variants are also
     // present.
     const VALID_PUNCTUATION = "-x\xE2\x80\x90-\xE2\x80\x95\xE2\x88\x92\xE3\x83\xBC\xEF\xBC\x8D-\xEF\xBC\x8F \xC2\xA0\xC2\xAD\xE2\x80\x8B\xE2\x81\xA0\xE3\x80\x80()\xEF\xBC\x88\xEF\xBC\x89\xEF\xBC\xBB\xEF\xBC\xBD.\\[\\]/~\xE2\x81\x93\xE2\x88\xBC";
-    const DIGITS = "\\p{Nd}";
+    const DIGITS = "0-9";
 
     // Pattern that makes it easy to distinguish whether a region has a single international dialing
     // prefix or not. If a region has a single international prefix (e.g. 011 in USA), it will be
@@ -1960,7 +1960,7 @@ class PhoneNumberUtil
         }
 
         $matches = array();
-        $match = preg_match('/' . static::$VALID_START_CHAR_PATTERN . '/ui', $number, $matches, PREG_OFFSET_CAPTURE);
+        $match = preg_match('/' . static::$VALID_START_CHAR_PATTERN . '/', $number, $matches, PREG_OFFSET_CAPTURE);
         if ($match > 0) {
             $number = substr($number, $matches[0][1]);
             // Remove trailing non-alpha non-numerical characters.
@@ -2199,7 +2199,7 @@ class PhoneNumberUtil
     public static function normalizeDigits($number, $keepNonDigits)
     {
         $normalizedDigits = '';
-        $numberAsArray = preg_split('/(?<!^)(?!$)/u', $number);
+        $numberAsArray = preg_split('/(?<!^)(?!$)/', $number);
         foreach ($numberAsArray as $character) {
             // Check if we are in the unicode number range
             if (array_key_exists($character, static::$numericCharacters)) {
